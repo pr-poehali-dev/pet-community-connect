@@ -486,10 +486,14 @@ const Index = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-4 h-12">
+          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-5 h-12">
             <TabsTrigger value="feed" className="gap-2">
               <Icon name="Newspaper" size={18} />
               Лента
+            </TabsTrigger>
+            <TabsTrigger value="rating" className="gap-2">
+              <Icon name="Trophy" size={18} />
+              Рейтинг
             </TabsTrigger>
             <TabsTrigger value="communities" className="gap-2">
               <Icon name="Users" size={18} />
@@ -641,6 +645,117 @@ const Index = () => {
                   </div>
                 </Card>
               </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="rating" className="animate-fade-in">
+            <div className="max-w-4xl mx-auto space-y-6">
+              <div className="text-center mb-8">
+                <h2 className="text-4xl font-bold mb-2 flex items-center justify-center gap-3">
+                  <Icon name="Trophy" size={40} className="text-yellow-500" />
+                  Топ питомцев
+                </h2>
+                <p className="text-muted-foreground">Самые популярные странички по лайкам и подписчикам</p>
+              </div>
+
+              <div className="grid gap-4">
+                {petPosts
+                  .sort((a, b) => (b.likes + b.followers) - (a.likes + a.followers))
+                  .map((pet, index) => {
+                    const totalScore = pet.likes + pet.followers;
+                    const medalColors = ['text-yellow-500', 'text-gray-400', 'text-orange-600'];
+                    const bgColors = ['bg-yellow-50 border-yellow-300', 'bg-gray-50 border-gray-300', 'bg-orange-50 border-orange-300'];
+                    
+                    return (
+                      <Card 
+                        key={pet.id} 
+                        className={`overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer border-2 ${index < 3 ? bgColors[index] : ''}`}
+                        onClick={() => setSelectedPet(pet.id)}
+                      >
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-6">
+                            <div className="relative">
+                              <div className={`text-6xl font-bold ${index < 3 ? medalColors[index] : 'text-muted-foreground'} w-16 text-center`}>
+                                {index < 3 ? (
+                                  <Icon name="Medal" size={60} className={medalColors[index]} />
+                                ) : (
+                                  `#${index + 1}`
+                                )}
+                              </div>
+                            </div>
+                            
+                            <div className="flex-1 flex items-center gap-6">
+                              <div className="relative group">
+                                <img
+                                  src={pet.image}
+                                  alt={pet.petName}
+                                  className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg group-hover:scale-110 transition-transform"
+                                />
+                                <div className="absolute -top-2 -right-2 text-4xl">{pet.avatar}</div>
+                              </div>
+                              
+                              <div className="flex-1">
+                                <h3 className="text-2xl font-bold mb-1">{pet.petName}</h3>
+                                <p className="text-muted-foreground mb-3">
+                                  {pet.breed} · {pet.ownerName}
+                                </p>
+                                <div className="flex items-center gap-6 text-sm">
+                                  <div className="flex items-center gap-2">
+                                    <Icon name="Heart" size={18} className="text-red-500" />
+                                    <span className="font-semibold">{pet.likes.toLocaleString()}</span>
+                                    <span className="text-muted-foreground">лайков</span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Icon name="Users" size={18} className="text-blue-500" />
+                                    <span className="font-semibold">{pet.followers.toLocaleString()}</span>
+                                    <span className="text-muted-foreground">подписчиков</span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Icon name="FileText" size={18} className="text-green-500" />
+                                    <span className="font-semibold">{pet.posts}</span>
+                                    <span className="text-muted-foreground">постов</span>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div className="text-right">
+                                <div className="text-3xl font-bold text-primary mb-1">
+                                  {totalScore.toLocaleString()}
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  очков рейтинга
+                                </div>
+                                <Badge className="mt-2" variant={index === 0 ? "default" : "secondary"}>
+                                  {index === 0 ? "🏆 Лидер" : index === 1 ? "🥈 2 место" : index === 2 ? "🥉 3 место" : "Участник"}
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+              </div>
+
+              <Card className="p-6 border-2 border-dashed">
+                <div className="text-center">
+                  <Icon name="TrendingUp" size={48} className="mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="font-bold text-xl mb-2">Как попасть в топ?</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Публикуй интересный контент, собирай лайки и подписчиков!
+                  </p>
+                  <div className="flex justify-center gap-3">
+                    <Button onClick={() => setShowNewPost(true)}>
+                      <Icon name="Plus" size={18} />
+                      Добавить пост
+                    </Button>
+                    <Button variant="outline" onClick={() => setShowNewShort(true)}>
+                      <Icon name="Video" size={18} />
+                      Shorts
+                    </Button>
+                  </div>
+                </div>
+              </Card>
             </div>
           </TabsContent>
 

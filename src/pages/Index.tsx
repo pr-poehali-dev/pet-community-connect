@@ -4,11 +4,21 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('feed');
   const [selectedPet, setSelectedPet] = useState<number | null>(null);
+  const [showNewPost, setShowNewPost] = useState(false);
+  const [showNewShort, setShowNewShort] = useState(false);
+  const [newPostCaption, setNewPostCaption] = useState('');
+  const [newShortCaption, setNewShortCaption] = useState('');
+  const [posts, setPosts] = useState<any[]>([]);
+  const [shorts, setShorts] = useState<any[]>([]);
 
   const petPosts = [
     {
@@ -331,10 +341,141 @@ const Index = () => {
                 <Icon name="ShoppingBag" size={20} />
                 Магазин
               </Button>
-              <Button className="gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
-                <Icon name="Plus" size={20} />
-                Добавить
-              </Button>
+              <Dialog open={showNewPost} onOpenChange={setShowNewPost}>
+                <DialogTrigger asChild>
+                  <Button className="gap-2 bg-gradient-to-r from-primary to-secondary hover:opacity-90">
+                    <Icon name="Plus" size={20} />
+                    Добавить пост
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold">Новый пост</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 py-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="petSelect">Выберите питомца</Label>
+                      <select
+                        id="petSelect"
+                        className="w-full p-2 border border-input rounded-lg bg-background"
+                      >
+                        {petPosts.map((pet) => (
+                          <option key={pet.id} value={pet.id}>
+                            {pet.avatar} {pet.petName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="postImage">Фото</Label>
+                      <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                        <Icon name="Upload" size={40} className="mx-auto mb-2 text-muted-foreground" />
+                        <p className="text-sm text-muted-foreground">Нажмите чтобы загрузить фото</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="caption">Описание</Label>
+                      <Textarea
+                        id="caption"
+                        placeholder="Расскажите историю..."
+                        value={newPostCaption}
+                        onChange={(e) => setNewPostCaption(e.target.value)}
+                        rows={4}
+                      />
+                    </div>
+                    <Button 
+                      className="w-full gap-2" 
+                      onClick={() => {
+                        if (newPostCaption) {
+                          setPosts([...posts, {
+                            id: Date.now(),
+                            petName: petPosts[0].petName,
+                            ownerName: 'Вы',
+                            avatar: petPosts[0].avatar,
+                            species: petPosts[0].species,
+                            image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800',
+                            likes: 0,
+                            comments: 0,
+                            caption: newPostCaption,
+                            time: 'только что'
+                          }]);
+                          setNewPostCaption('');
+                          setShowNewPost(false);
+                        }
+                      }}
+                    >
+                      <Icon name="Send" size={18} />
+                      Опубликовать
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+              <Dialog open={showNewShort} onOpenChange={setShowNewShort}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="gap-2">
+                    <Icon name="Video" size={20} />
+                    Shorts
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold">Новый Short</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 py-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="petSelectShort">Выберите питомца</Label>
+                      <select
+                        id="petSelectShort"
+                        className="w-full p-2 border border-input rounded-lg bg-background"
+                      >
+                        {petPosts.map((pet) => (
+                          <option key={pet.id} value={pet.id}>
+                            {pet.avatar} {pet.petName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="shortVideo">Видео (вертикальное)</Label>
+                      <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
+                        <Icon name="Film" size={40} className="mx-auto mb-2 text-muted-foreground" />
+                        <p className="text-sm text-muted-foreground">Нажмите чтобы загрузить видео</p>
+                        <p className="text-xs text-muted-foreground mt-1">Формат 9:16 (вертикальное)</p>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="shortCaption">Описание</Label>
+                      <Textarea
+                        id="shortCaption"
+                        placeholder="О чем ваш Short?..."
+                        value={newShortCaption}
+                        onChange={(e) => setNewShortCaption(e.target.value)}
+                        rows={3}
+                      />
+                    </div>
+                    <Button 
+                      className="w-full gap-2"
+                      onClick={() => {
+                        if (newShortCaption) {
+                          setShorts([...shorts, {
+                            id: Date.now(),
+                            petName: petPosts[0].petName,
+                            username: '@' + petPosts[0].petName.toLowerCase(),
+                            avatar: petPosts[0].avatar,
+                            image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=600',
+                            caption: newShortCaption
+                          }]);
+                          setNewShortCaption('');
+                          setShowNewShort(false);
+                        }
+                      }}
+                    >
+                      <Icon name="Send" size={18} />
+                      Опубликовать
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </nav>
             <Avatar className="w-10 h-10 border-2 border-primary">
               <AvatarFallback>👤</AvatarFallback>
@@ -367,6 +508,54 @@ const Index = () => {
           <TabsContent value="feed" className="space-y-6 animate-fade-in">
             <div className="grid lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 space-y-6">
+                {posts.map((post, index) => (
+                  <Card 
+                    key={post.id} 
+                    className="overflow-hidden hover:shadow-xl transition-all duration-300 border-2 bg-green-50"
+                  >
+                    <CardContent className="p-0">
+                      <div className="p-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="text-4xl">{post.avatar}</div>
+                          <div>
+                            <h3 className="font-bold text-lg">{post.petName}</h3>
+                            <p className="text-sm text-muted-foreground">
+                              {post.ownerName} · {post.time}
+                            </p>
+                          </div>
+                        </div>
+                        <Badge className="gap-1 bg-accent">
+                          Новое!
+                        </Badge>
+                      </div>
+                      <div className="relative overflow-hidden group">
+                        <img
+                          src={post.image}
+                          alt={post.petName}
+                          className="w-full aspect-square object-cover"
+                        />
+                      </div>
+                      <div className="p-4 space-y-3">
+                        <div className="flex items-center gap-4">
+                          <Button variant="ghost" size="sm" className="gap-2 hover:text-primary">
+                            <Icon name="Heart" size={20} />
+                            {post.likes}
+                          </Button>
+                          <Button variant="ghost" size="sm" className="gap-2 hover:text-accent">
+                            <Icon name="MessageCircle" size={20} />
+                            {post.comments}
+                          </Button>
+                          <Button variant="ghost" size="sm" className="gap-2 hover:text-secondary">
+                            <Icon name="Share2" size={20} />
+                          </Button>
+                        </div>
+                        <p className="text-sm leading-relaxed">
+                          <span className="font-semibold">{post.petName}</span> {post.caption}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
                 {petPosts.map((post, index) => (
                   <Card 
                     key={post.id} 
@@ -477,7 +666,44 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="shorts" className="animate-fade-in">
-            <div className="max-w-md mx-auto">
+            <div className="max-w-md mx-auto space-y-6">
+              {shorts.map((short) => (
+                <Card key={short.id} className="overflow-hidden border-2 bg-green-50">
+                  <CardContent className="p-0">
+                    <div className="aspect-[9/16] bg-gradient-to-br from-primary/20 to-accent/20 relative">
+                      <img
+                        src={short.image}
+                        alt="Short video"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-4 right-4">
+                        <Badge className="bg-accent">Новое!</Badge>
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="text-3xl">{short.avatar}</div>
+                          <div>
+                            <h4 className="font-bold">{short.petName}</h4>
+                            <p className="text-sm opacity-90">{short.username}</p>
+                          </div>
+                        </div>
+                        <p className="text-sm mb-4">{short.caption}</p>
+                      </div>
+                      <div className="absolute right-4 bottom-24 space-y-4">
+                        <Button size="icon" variant="ghost" className="w-14 h-14 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full">
+                          <Icon name="Heart" size={24} />
+                        </Button>
+                        <Button size="icon" variant="ghost" className="w-14 h-14 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full">
+                          <Icon name="MessageCircle" size={24} />
+                        </Button>
+                        <Button size="icon" variant="ghost" className="w-14 h-14 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full">
+                          <Icon name="Share2" size={24} />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
               <Card className="overflow-hidden border-2">
                 <CardContent className="p-0">
                   <div className="aspect-[9/16] bg-gradient-to-br from-primary/20 to-accent/20 relative">

@@ -133,6 +133,171 @@ const Index = () => {
           ]
         }
       ]
+    },
+    {
+      id: 4,
+      petName: 'Кеша',
+      ownerName: 'Ольга',
+      avatar: '🦜',
+      species: 'Попугай',
+      breed: 'Ара',
+      age: '5 лет',
+      weight: '1.2 кг',
+      bio: 'Разговорчивый ара с ярким характером! Знаю 50 слов и обожаю танцевать под музыку 🎵',
+      image: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200',
+      followers: 1823,
+      following: 98,
+      posts: 156,
+      likes: 1456,
+      comments: 67,
+      caption: 'Научился новой фразе: "Привет, красавчик!" 😄',
+      time: '3 часа назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400', title: 'Утренние разговоры' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Яркие моменты',
+          photos: [
+            'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400',
+            'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400'
+          ]
+        }
+      ]
+    },
+    {
+      id: 5,
+      petName: 'Пушок',
+      ownerName: 'Анна',
+      avatar: '🐰',
+      species: 'Кролик',
+      breed: 'Декоративный',
+      age: '1 год',
+      weight: '2 кг',
+      bio: 'Милый пушистый кролик, обожаю морковку и прыжки! Самый ласковый питомец 🥕',
+      image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=1200',
+      followers: 2145,
+      following: 134,
+      posts: 98,
+      likes: 1834,
+      comments: 92,
+      caption: 'Морковный день! Нашёл целую корзину моркови 🥕🧡',
+      time: '6 часов назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400', title: 'Морковка' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Пушистые деньки',
+          photos: [
+            'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=400',
+            'https://images.unsplash.com/photo-1535241749838-299277b6305f?w=400'
+          ]
+        }
+      ]
+    },
+    {
+      id: 6,
+      petName: 'Чип',
+      ownerName: 'Игорь',
+      avatar: '🐹',
+      species: 'Хомяк',
+      breed: 'Джунгарский',
+      age: '8 месяцев',
+      weight: '0.05 кг',
+      bio: 'Маленький джунгарский хомячок, люблю бегать в колесе и прятать еду! 🏃‍♂️',
+      image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=1200',
+      followers: 1456,
+      following: 67,
+      posts: 143,
+      likes: 1123,
+      comments: 54,
+      caption: 'Новый рекорд - 10 км в колесе за ночь! 💪',
+      time: '8 часов назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400', title: 'В колесе' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Маленькие радости',
+          photos: [
+            'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400',
+            'https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=400'
+          ]
+        }
+      ]
+    },
+    {
+      id: 7,
+      petName: 'Луна',
+      ownerName: 'Екатерина',
+      avatar: '🐱',
+      species: 'Кот',
+      breed: 'Сфинкс',
+      age: '2 года',
+      weight: '4 кг',
+      bio: 'Элегантный сфинкс с королевским характером. Теплолюбива и обожаю обнимашки! 👑',
+      image: 'https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1573865526739-10c1dd7ac1d6?w=1200',
+      followers: 4234,
+      following: 289,
+      posts: 187,
+      likes: 3456,
+      comments: 178,
+      caption: 'Греюсь на солнышке, как всегда ☀️😻',
+      time: '4 часа назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=400', title: 'Солнечные ванны' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Королевские моменты',
+          photos: [
+            'https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=400',
+            'https://images.unsplash.com/photo-1573865526739-10c1dd7ac1d6?w=400'
+          ]
+        }
+      ]
+    },
+    {
+      id: 8,
+      petName: 'Барон',
+      ownerName: 'Сергей',
+      avatar: '🐕',
+      species: 'Собака',
+      breed: 'Немецкая овчарка',
+      age: '5 лет',
+      weight: '35 кг',
+      bio: 'Умный и преданный защитник семьи. Профессиональный охранник и лучший друг! 🛡️',
+      image: 'https://images.unsplash.com/photo-1568572933382-74d440642117?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1551717743-49959800b1f6?w=1200',
+      followers: 3987,
+      following: 234,
+      posts: 201,
+      likes: 2789,
+      comments: 134,
+      caption: 'На посту! Охраняю территорию 🦴⚔️',
+      time: '12 часов назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1568572933382-74d440642117?w=400', title: 'На службе' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Служебные будни',
+          photos: [
+            'https://images.unsplash.com/photo-1568572933382-74d440642117?w=400',
+            'https://images.unsplash.com/photo-1551717743-49959800b1f6?w=400'
+          ]
+        }
+      ]
     }
   ];
 
@@ -659,14 +824,14 @@ const Index = () => {
                 <p className="text-muted-foreground">Самые популярные странички по лайкам и подписчикам</p>
               </div>
 
-              <div className="flex justify-center gap-3 mb-6">
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
                 <Button
                   variant={ratingFilter === 'all' ? 'default' : 'outline'}
                   onClick={() => setRatingFilter('all')}
                   className="gap-2"
                 >
                   <Icon name="Sparkles" size={18} />
-                  Все питомцы
+                  Все
                 </Button>
                 <Button
                   variant={ratingFilter === 'Собака' ? 'default' : 'outline'}
@@ -681,6 +846,27 @@ const Index = () => {
                   className="gap-2"
                 >
                   🐱 Коты
+                </Button>
+                <Button
+                  variant={ratingFilter === 'Попугай' ? 'default' : 'outline'}
+                  onClick={() => setRatingFilter('Попугай')}
+                  className="gap-2"
+                >
+                  🦜 Попугаи
+                </Button>
+                <Button
+                  variant={ratingFilter === 'Кролик' ? 'default' : 'outline'}
+                  onClick={() => setRatingFilter('Кролик')}
+                  className="gap-2"
+                >
+                  🐰 Кролики
+                </Button>
+                <Button
+                  variant={ratingFilter === 'Хомяк' ? 'default' : 'outline'}
+                  onClick={() => setRatingFilter('Хомяк')}
+                  className="gap-2"
+                >
+                  🐹 Хомяки
                 </Button>
               </div>
 

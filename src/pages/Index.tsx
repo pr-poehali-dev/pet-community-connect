@@ -8,6 +8,7 @@ import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('feed');
+  const [selectedPet, setSelectedPet] = useState<number | null>(null);
 
   const petPosts = [
     {
@@ -17,11 +18,43 @@ const Index = () => {
       avatar: '🐕',
       species: 'Собака',
       breed: 'Корги',
+      age: '2 года',
+      weight: '12 кг',
+      bio: 'Весёлый корги, который обожает прогулки и вкусняшки! Люблю плавать и играть с мячиком.',
       image: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200',
+      followers: 3542,
+      following: 289,
+      posts: 127,
       likes: 1247,
       comments: 83,
       caption: 'Первая прогулка после дождя! 🌧️ Бублик обожает прыгать по лужам',
-      time: '2 часа назад'
+      time: '2 часа назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400', title: 'Прогулка утром' },
+        { id: 2, image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400', title: 'Игры на пляже' },
+        { id: 3, image: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400', title: 'Новая игрушка' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Летние приключения',
+          photos: [
+            'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400',
+            'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400',
+            'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400',
+            'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400'
+          ]
+        },
+        {
+          id: 2,
+          name: 'Зимние забавы',
+          photos: [
+            'https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=400',
+            'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400'
+          ]
+        }
+      ]
     },
     {
       id: 2,
@@ -30,11 +63,31 @@ const Index = () => {
       avatar: '🐱',
       species: 'Кот',
       breed: 'Британец',
+      age: '3 года',
+      weight: '5 кг',
+      bio: 'Аристократичный британец с золотым характером. Предпочитаю долгий сон и солнечные ванны.',
       image: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=1200',
+      followers: 2834,
+      following: 156,
+      posts: 89,
       likes: 892,
       comments: 45,
       caption: 'Когда солнечный зайчик – твой лучший друг ☀️',
-      time: '5 часов назад'
+      time: '5 часов назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400', title: 'Утренняя зарядка' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Домашний уют',
+          photos: [
+            'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400',
+            'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400'
+          ]
+        }
+      ]
     },
     {
       id: 3,
@@ -43,11 +96,32 @@ const Index = () => {
       avatar: '🐕',
       species: 'Собака',
       breed: 'Хаски',
+      age: '4 года',
+      weight: '25 кг',
+      bio: 'Энергичный хаски с голубыми глазами. Обожаю снег, бег и приключения! 🏔️',
       image: 'https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=800',
+      coverImage: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=1200',
+      followers: 5621,
+      following: 412,
+      posts: 234,
       likes: 2134,
       comments: 156,
       caption: 'Снежный день – лучший день! ❄️🐾',
-      time: '1 день назад'
+      time: '1 день назад',
+      stories: [
+        { id: 1, image: 'https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=400', title: 'Снежные игры' },
+        { id: 2, image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400', title: 'Бег по лесу' }
+      ],
+      albums: [
+        {
+          id: 1,
+          name: 'Зимние путешествия',
+          photos: [
+            'https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=400',
+            'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400'
+          ]
+        }
+      ]
     }
   ];
 
@@ -88,6 +162,150 @@ const Index = () => {
       category: 'Аксессуары'
     }
   ];
+
+  if (selectedPet !== null) {
+    const pet = petPosts.find(p => p.id === selectedPet);
+    if (!pet) return null;
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50">
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border shadow-sm">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <Button variant="ghost" onClick={() => setSelectedPet(null)} className="gap-2">
+                <Icon name="ArrowLeft" size={20} />
+                Назад
+              </Button>
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                {pet.petName}
+              </h1>
+              <Button variant="outline" className="gap-2">
+                <Icon name="Share2" size={20} />
+              </Button>
+            </div>
+          </div>
+        </header>
+
+        <main className="container mx-auto px-4 pb-8">
+          <div className="relative">
+            <div className="h-64 overflow-hidden rounded-b-3xl">
+              <img
+                src={pet.coverImage}
+                alt="Cover"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+              <div className="w-32 h-32 rounded-full border-4 border-white bg-white text-8xl flex items-center justify-center shadow-xl">
+                {pet.avatar}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-20 space-y-6">
+            <div className="text-center space-y-2">
+              <h2 className="text-4xl font-bold">{pet.petName}</h2>
+              <p className="text-muted-foreground text-lg">{pet.breed} · {pet.age}</p>
+              <div className="flex items-center justify-center gap-6 mt-4">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">{pet.posts}</p>
+                  <p className="text-sm text-muted-foreground">Постов</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">{pet.followers}</p>
+                  <p className="text-sm text-muted-foreground">Подписчиков</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-primary">{pet.following}</p>
+                  <p className="text-sm text-muted-foreground">Подписок</p>
+                </div>
+              </div>
+              <div className="flex gap-3 justify-center mt-6">
+                <Button className="gap-2">
+                  <Icon name="UserPlus" size={18} />
+                  Подписаться
+                </Button>
+                <Button variant="outline" className="gap-2">
+                  <Icon name="MessageCircle" size={18} />
+                  Написать
+                </Button>
+              </div>
+            </div>
+
+            <Card className="p-6">
+              <h3 className="font-bold text-xl mb-3 flex items-center gap-2">
+                <Icon name="Info" size={20} className="text-primary" />
+                О питомце
+              </h3>
+              <div className="space-y-2">
+                <p className="text-muted-foreground">{pet.bio}</p>
+                <div className="flex gap-4 mt-4">
+                  <Badge variant="secondary" className="gap-2">
+                    <Icon name="Calendar" size={14} />
+                    {pet.age}
+                  </Badge>
+                  <Badge variant="secondary" className="gap-2">
+                    <Icon name="Weight" size={14} />
+                    {pet.weight}
+                  </Badge>
+                  <Badge variant="secondary" className="gap-2">
+                    <Icon name="User" size={14} />
+                    {pet.ownerName}
+                  </Badge>
+                </div>
+              </div>
+            </Card>
+
+            <div>
+              <h3 className="font-bold text-2xl mb-4 flex items-center gap-2">
+                <Icon name="Sparkles" size={24} className="text-primary" />
+                Истории
+              </h3>
+              <div className="flex gap-4 overflow-x-auto pb-2">
+                {pet.stories.map((story) => (
+                  <div key={story.id} className="flex-shrink-0 cursor-pointer group">
+                    <div className="w-28 h-28 rounded-2xl overflow-hidden border-4 border-primary group-hover:scale-105 transition-transform">
+                      <img
+                        src={story.image}
+                        alt={story.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <p className="text-xs text-center mt-2 font-medium">{story.title}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-bold text-2xl mb-4 flex items-center gap-2">
+                <Icon name="Image" size={24} className="text-primary" />
+                Фотоальбомы
+              </h3>
+              <div className="space-y-6">
+                {pet.albums.map((album) => (
+                  <Card key={album.id} className="p-6">
+                    <h4 className="font-bold text-lg mb-4">{album.name}</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                      {album.photos.map((photo, idx) => (
+                        <div key={idx} className="aspect-square rounded-lg overflow-hidden group cursor-pointer">
+                          <img
+                            src={photo}
+                            alt={`Photo ${idx + 1}`}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50">
@@ -157,7 +375,10 @@ const Index = () => {
                   >
                     <CardContent className="p-0">
                       <div className="p-4 flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div 
+                          className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => setSelectedPet(post.id)}
+                        >
                           <div className="text-4xl">{post.avatar}</div>
                           <div>
                             <h3 className="font-bold text-lg">{post.petName}</h3>

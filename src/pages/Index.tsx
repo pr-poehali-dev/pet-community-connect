@@ -19,6 +19,7 @@ const Index = () => {
   const [newShortCaption, setNewShortCaption] = useState('');
   const [posts, setPosts] = useState<any[]>([]);
   const [shorts, setShorts] = useState<any[]>([]);
+  const [ratingFilter, setRatingFilter] = useState('all');
 
   const petPosts = [
     {
@@ -658,8 +659,34 @@ const Index = () => {
                 <p className="text-muted-foreground">Самые популярные странички по лайкам и подписчикам</p>
               </div>
 
+              <div className="flex justify-center gap-3 mb-6">
+                <Button
+                  variant={ratingFilter === 'all' ? 'default' : 'outline'}
+                  onClick={() => setRatingFilter('all')}
+                  className="gap-2"
+                >
+                  <Icon name="Sparkles" size={18} />
+                  Все питомцы
+                </Button>
+                <Button
+                  variant={ratingFilter === 'Собака' ? 'default' : 'outline'}
+                  onClick={() => setRatingFilter('Собака')}
+                  className="gap-2"
+                >
+                  🐕 Собаки
+                </Button>
+                <Button
+                  variant={ratingFilter === 'Кот' ? 'default' : 'outline'}
+                  onClick={() => setRatingFilter('Кот')}
+                  className="gap-2"
+                >
+                  🐱 Коты
+                </Button>
+              </div>
+
               <div className="grid gap-4">
                 {petPosts
+                  .filter(pet => ratingFilter === 'all' || pet.species === ratingFilter)
                   .sort((a, b) => (b.likes + b.followers) - (a.likes + a.followers))
                   .map((pet, index) => {
                     const totalScore = pet.likes + pet.followers;
